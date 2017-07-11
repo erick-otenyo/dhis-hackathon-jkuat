@@ -5,9 +5,10 @@ from . import views
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
-	url(r'^$', views.org_view, name='org_view'),
-	url(r'^dataElements/', views.data_elements_view, name='data_view'),
-	url(r'^geodata/', views.org_map_data, name='gis_data'),
-	url(r'^map/', views.map_view, name='org_map'),
-	url(r'^analytics/', views.analytics, name='analytics'),
+	url(r'^$', views.org, name='org_view'),
+	url(r'^datael/', views.datael, name='datael'),
+	url(r'^map/', views.map, name='org_map'),
+	url(r'^charts/', views.analytics, name='analytics'),
+	url(r'^analytics_data/', views.analytics_data, name='analytics_data'),
+
 ]
