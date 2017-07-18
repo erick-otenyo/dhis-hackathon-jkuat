@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from .utils import get_org_units, get_data_el, get_geojson, get_analytics
+from .utils import get_org_units, get_data_el, get_geojson, get_analytics, get_preg
 
 org_names = {
 	"O6uvpzGd5pu": "Bo",
@@ -41,6 +41,60 @@ def analytics_data(request):
 		orgs.append(org)
 		pe = an_data['rows'][i][1]
 		val = an_data['rows'][i][2]
+		dat['Organisation Unit'] = org
+		dat['pe'] = pe
+		dat['val'] = float(val)
+		columns['records'].append(dat)
+	
+	unique_orgs = set(orgs)
+	
+	def get_geojson_pk():
+		x = get_geojson().json()
+	
+	collection = {}
+	
+	for org in unique_orgs:
+		collection[org] = [{"period": [], "value": [], "name": '', "average": ''}]
+	
+	geojson = get_geojson().json()
+	
+	for x in unique_orgs:
+		for n in columns["records"]:
+			org = n["Organisation Unit"]
+			if x == org:
+				org_name = get_org_name(x)
+				collection[x][0]["period"].append(n['pe'])
+				collection[x][0]["value"].append(n['val'])
+				collection[x][0]["name"] = org_name
+				tot = sum(collection[x][0]["value"])
+				av = tot / len(collection[x][0]["period"])
+				collection[x][0]["average"] = av
+				
+				for i in range(len(geojson["features"])):
+					feat = geojson["features"][i]
+					id = feat["id"]
+					if x == id:
+						total = sum(collection[x][0]["value"])
+						av = total / len(collection[x][0]["period"])
+						feat["properties"]['average'] = av
+	collection["geojson"] = geojson
+	return JsonResponse(collection)
+
+
+def preg_comp(request):
+	preg_data = get_preg()
+	columns = {
+		"records": []
+	}
+	
+	orgs = []
+	
+	for i in range(len(preg_data["rows"])):
+		dat = {}
+		org = preg_data['rows'][i][0]
+		orgs.append(org)
+		pe = preg_data['rows'][i][1]
+		val = preg_data['rows'][i][2]
 		dat['Organisation Unit'] = org
 		dat['pe'] = pe
 		dat['val'] = float(val)

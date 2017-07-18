@@ -38,15 +38,15 @@ def get_geojson(level=2):
 
 
 def get_analytics():
-	params = {
-		'dimension': 'dx:YtbsuPPo010;l6byfWFUGaP;s46m5MS0hxu',
-		'dimension': 'pe:LAST_12_MONTHS',
-		'filter': 'ou:ImspTQPwCqd&displayProperty=NAME',
-		'skipMeta': 'false'
-	}
-	
 	r = requests.get(
 		'https://play.dhis2.org/release1/api/25/analytics.json?dimension=ou:O6uvpzGd5pu;PMa2VCrupOd;jUb8gELQApl;kJq2mPyFEHo;lc3eMKXaEfw&dimension=pe:LAST_12_MONTHS&filter=dx:dwEq7wi6nXV&displayProperty=NAME&skipMeta=true',
 		auth=('admin', 'district'))
 	
+	return r.json()
+
+
+def get_preg():
+	r = requests.get(
+		'https://play.dhis2.org/release1/api/25/analytics.json?dimension=ou:O6uvpzGd5pu;PMa2VCrupOd;jUb8gELQApl;kJq2mPyFEHo;lc3eMKXaEfw&dimension=pe:LAST_12_MONTHS&filter=dx:h8vtacmZL5j&displayProperty=NAME&skipMeta=true',
+		auth=('admin', 'district'))
 	return r.json()
