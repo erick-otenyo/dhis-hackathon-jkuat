@@ -46,7 +46,7 @@ lazr.restfulclient==0.13.4
 lazr.uri==1.0.3
 LibAppArmor==2.10.95
 louis==2.6.5
-lxml==3.6.4
+lxml==4.9.1
 Mako==1.0.4
 MarkupSafe==0.23
 matplotlib==1.5.2rc2
