@@ -47,7 +47,7 @@ lazr.uri==1.0.3
 LibAppArmor==2.10.95
 louis==2.6.5
 lxml==3.6.4
-Mako==1.0.4
+Mako==1.2.2
 MarkupSafe==0.23
 matplotlib==1.5.2rc2
 mistune==0.7.4
